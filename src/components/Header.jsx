@@ -1,5 +1,5 @@
 import { Container, Grid } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router";
 import userStore from "../store/UserStore";
@@ -9,7 +9,7 @@ const Header = () => {
 
   const { userName, setUser } = userStore();
 
-  console.log("userName : ", userName);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   function logout() {
     setUser("");
@@ -23,11 +23,18 @@ const Header = () => {
           코딩알려주는 누나 도서관
         </Grid>
 
-        <Grid size={4} className="menuOpenBtn">
+        <Grid
+          size={4}
+          className="menuOpenBtn"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
           <MenuIcon />
         </Grid>
 
-        <Grid size={{ xs: 12, lg: 4 }} className="menuList">
+        <Grid
+          size={{ xs: 12, lg: 4 }}
+          className={`menuList ${menuOpen ? "open" : ""}`}
+        >
           <div onClick={() => navigate("/")}>메인</div>
           <div
             onClick={() =>

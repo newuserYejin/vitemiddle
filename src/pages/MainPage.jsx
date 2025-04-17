@@ -2,10 +2,7 @@ import React from "react";
 import SearchBox from "../components/SearchBox";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { CircularProgress } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+import { Box, CircularProgress, Container, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 
@@ -29,27 +26,53 @@ const MainPage = () => {
   return (
     <div>
       <SearchBox />
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        data.map((item) => (
-          <Card sx={{ maxWidth: 345 }}>
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                height="140"
-                image="#"
-                alt={item.title}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {item.title}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        ))
-      )}
+      <Container>
+        <Grid container>
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            data.map((item) => (
+              <Grid
+                size={{ xs: 6, md: 4 }}
+                sx={{
+                  height: "300px",
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "10px 0",
+                }}
+              >
+                <Box
+                  sx={{
+                    border: "solid 1px #797979",
+                    width: "80%",
+                    padding: "10px",
+                    boxShadow: "3px 3px 0 #797979",
+                  }}
+                >
+                  <CardActionArea
+                    sx={{
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <img
+                      style={{ height: "80%" }}
+                      src={`https://covers.openlibrary.org/b/id/${item.cover_id}-M.jpg`}
+                      alt={item.title}
+                    />
+                    <Typography gutterBottom variant="h5" component="div">
+                      {item.title}
+                    </Typography>
+                  </CardActionArea>
+                </Box>
+              </Grid>
+            ))
+          )}
+        </Grid>
+      </Container>
     </div>
   );
 };

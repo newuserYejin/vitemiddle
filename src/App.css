@@ -57,8 +57,16 @@
         .menuList {
             margin-top: 10px;
             flex-direction: column;
-
+            max-height: 0;
+            overflow: hidden;
             text-align: center;
+            transition: max-height 0.9s ease-in-out
+        }
+
+        .menuList.open {
+            max-height: 300px;
+            /* 충분히 크게 */
+            display: flex;
         }
     }
 }
